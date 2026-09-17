@@ -314,6 +314,334 @@ export const guest = (() => {
     };
 
     /**
+     * Danh sách ảnh Khoảnh Khắc.
+     *
+     * Fix cứng 10 ảnh:
+     * 01.jpg -> 10.jpg
+     *
+     * Chỉ cần thay ảnh trong folder.
+     *
+     * @returns {string[]}
+     */
+    const getKhoanhKhacImages = () => {
+        return Array.from(
+            { length: 10 },
+            (_, i) =>
+                `./assets/images/Khoanh_Khac/${String(i + 1).padStart(2, '0')}.jpg`
+        );
+    };
+
+    /**
+     * Shuffle mảng bằng Fisher-Yates.
+     *
+     * @param {string[]} array
+     * @returns {string[]}
+     */
+    const shuffle = (array) => {
+        const result = [...array];
+
+        for (let i = result.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+
+            [result[i], result[j]] = [result[j], result[i]];
+        }
+
+        return result;
+    };
+
+    /**
+     * Tạo ảnh.
+     *
+     * Vẫn sử dụng cơ chế lazy-load của image.js:
+     *
+     * src      = placeholder
+     * data-src = ảnh thật
+     *
+     * @param {string} src
+     * @returns {HTMLImageElement}
+     */
+    const createGalleryImage = (src) => {
+        const img = document.createElement('img');
+
+        img.src = './assets/images/placeholder.webp';
+        img.setAttribute('data-src', src);
+
+        img.alt = 'Khoảnh khắc';
+        img.loading = 'lazy';
+
+        img.className =
+            'd-block w-100 rounded shadow cursor-pointer';
+
+        img.style.height = 'auto';
+        img.style.objectFit = 'contain';
+
+        img.setAttribute(
+            'onclick',
+            'undangan.guest.modal(this)'
+        );
+
+        return img;
+    };
+
+    /**
+     * Tạo Carousel Item.
+     *
+     * @param {string} src
+     * @param {boolean} active
+     * @returns {HTMLDivElement}
+     */
+    const createCarouselItem = (src, active = false) => {
+        const item = document.createElement('div');
+
+        item.className = active
+            ? 'carousel-item active'
+            : 'carousel-item';
+
+        item.appendChild(
+            createGalleryImage(src)
+        );
+
+        return item;
+    };
+
+    /**
+     * Tạo indicator.
+     *
+     * @param {string} carouselId
+     * @param {number} index
+     * @param {boolean} active
+     * @returns {HTMLButtonElement}
+     */
+    const createCarouselIndicator = (
+        carouselId,
+        index,
+        active = false
+    ) => {
+        const button = document.createElement('button');
+
+        button.type = 'button';
+
+        button.setAttribute(
+            'data-bs-target',
+            `#${carouselId}`
+        );
+
+        button.setAttribute(
+            'data-bs-slide-to',
+            String(index)
+        );
+
+        button.setAttribute(
+            'aria-label',
+            `Ảnh ${index + 1}`
+        );
+
+        if (active) {
+            button.classList.add('active');
+            button.setAttribute(
+                'aria-current',
+                'true'
+            );
+        }
+
+        return button;
+    };
+
+    /**
+     * Build Bootstrap Carousel.
+     *
+     * @param {string} carouselId
+     * @param {string[]} images
+     * @returns {void}
+     */
+    const buildCarousel = (carouselId, images) => {
+        const carousel =
+            document.getElementById(carouselId);
+
+        if (!carousel) {
+            return;
+        }
+
+        const inner =
+            carousel.querySelector('.carousel-inner');
+
+        const indicators =
+            carousel.querySelector('.carousel-indicators');
+
+        if (!inner) {
+            return;
+        }
+
+        /*
+        * Xóa toàn bộ item cũ.
+        */
+        inner.innerHTML = '';
+
+        /*
+        * Xóa toàn bộ indicator cũ.
+        */
+        if (indicators) {
+            indicators.innerHTML = '';
+        }
+
+        /*
+        * Tạo lại toàn bộ ảnh.
+        */
+        images.forEach((src, index) => {
+
+            inner.appendChild(
+                createCarouselItem(
+                    src,
+                    index === 0
+                )
+            );
+
+            if (indicators) {
+                indicators.appendChild(
+                    createCarouselIndicator(
+                        carouselId,
+                        index,
+                        index === 0
+                    )
+                );
+            }
+        });
+    };
+
+    /**
+     * Build 2 Carousel.
+     *
+     * 10 ảnh:
+     *
+     * Carousel 1 = 5 ảnh
+     * Carousel 2 = 5 ảnh
+     *
+     * Không trùng ảnh.
+     *
+     * @param {string[]} images
+     * @returns {void}
+     */
+    const buildKhoanhKhac = (images) => {
+
+        const shuffled = shuffle(images);
+
+        const half = Math.floor(
+            shuffled.length / 2
+        );
+
+        const carouselOne =
+            shuffled.slice(0, half);
+
+        const carouselTwo =
+            shuffled.slice(half);
+
+        buildCarousel(
+            'carousel-image-one',
+            carouselOne
+        );
+
+        buildCarousel(
+            'carousel-image-two',
+            carouselTwo
+        );
+    };
+
+    /**
+     * Build toàn bộ Desktop Slides.
+     *
+     * Toàn bộ 10 ảnh đều được sử dụng.
+     *
+     * @param {string[]} images
+     * @returns {void}
+     */
+    const buildDesktopSlides = (images) => {
+
+        /*
+        * Lấy đúng container đang chứa
+        * các .slide-desktop.
+        */
+        const slideContainer =
+            document
+                .getElementById('root')
+                ?.querySelector(
+                    '.d-sm-block .overflow-hidden.vw-100'
+                );
+
+        if (!slideContainer) {
+            return;
+        }
+
+        /*
+        * Xóa toàn bộ slide cũ.
+        */
+        slideContainer
+            .querySelectorAll('.slide-desktop')
+            .forEach((slide) => slide.remove());
+
+        /*
+        * Shuffle riêng cho Desktop.
+        */
+        const shuffled = shuffle(images);
+
+        /*
+        * Tạo toàn bộ 10 slide.
+        */
+        shuffled.forEach((src) => {
+
+            const slide =
+                document.createElement('div');
+
+            slide.className =
+                'position-absolute h-100 w-100 slide-desktop';
+
+            slide.style.opacity = '0';
+
+            const img =
+                document.createElement('img');
+
+            img.src =
+                './assets/images/placeholder.webp';
+
+            img.setAttribute(
+                'data-src',
+                src
+            );
+
+            img.alt = 'Ảnh nền';
+
+            img.className =
+                'bg-cover-home';
+
+            img.style.maskImage = 'none';
+            img.style.opacity = '30%';
+
+            slide.appendChild(img);
+
+            slideContainer.appendChild(slide);
+        });
+    };
+
+    /**
+     * Build toàn bộ hệ thống Khoảnh Khắc.
+     *
+     * @returns {void}
+     */
+    const buildKhoanhKhacImages = () => {
+
+        const images =
+            getKhoanhKhacImages();
+
+        /*
+        * 10 ảnh -> 5 + 5
+        */
+        buildKhoanhKhac(images);
+
+        /*
+        * Desktop -> toàn bộ 10 ảnh
+        */
+        buildDesktopSlides(images);
+    };
+    /**
      * @returns {void}
      */
     const pageLoaded = () => {
@@ -324,6 +652,12 @@ export const guest = (() => {
 
         config = storage('config');
         information = storage('information');
+
+        /*
+        * Phải build ảnh TRƯỚC image.init()
+        * để image.js nhận được toàn bộ <img> mới.
+        */
+        buildKhoanhKhacImages();
 
         const vid = video.init();
         const img = image.init();

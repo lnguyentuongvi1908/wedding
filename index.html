@@ -112,39 +112,6 @@
 
                 <div class="d-flex position-absolute w-100 h-100">
 
-                    <div class="position-relative overflow-hidden vw-100">
-
-                        <div class="position-absolute h-100 w-100 slide-desktop"
-                             style="opacity: 0;">
-
-                            <img src="./assets/images/placeholder.webp"
-                                 data-src="https://picsum.photos/1000/1000?random=7"
-                                 alt="Ảnh nền"
-                                 class="bg-cover-home"
-                                 style="mask-image: none; opacity: 30%;">
-                        </div>
-
-                        <div class="position-absolute h-100 w-100 slide-desktop"
-                             style="opacity: 0;">
-
-                            <img src="./assets/images/placeholder.webp"
-                                 data-src="https://picsum.photos/1000/1000?random=8"
-                                 alt="Ảnh nền"
-                                 class="bg-cover-home"
-                                 style="mask-image: none; opacity: 30%;">
-                        </div>
-
-                        <div class="position-absolute h-100 w-100 slide-desktop"
-                             style="opacity: 0;">
-
-                            <img src="./assets/images/placeholder.webp"
-                                 data-src="https://picsum.photos/1000/1000?random=9"
-                                 alt="Ảnh nền"
-                                 class="bg-cover-home"
-                                 style="mask-image: none; opacity: 30%;">
-                        </div>
-
-                    </div>
                 </div>
 
                 <div class="text-center p-4 bg-overlay-auto rounded-5">
@@ -174,53 +141,62 @@
                   data-bs-smooth-scroll="true"
                   tabindex="0">
 
+                
                 <!-- Home -->
                 <section id="home"
-                         class="bg-light-dark position-relative overflow-hidden p-0 m-0">
+                        class="position-relative overflow-hidden p-0 m-0"
+                        style="min-height: 100vh;">
 
+                    <!-- Ảnh nền - BẤM VÀO ĐÂY ĐỂ XEM ẢNH LỚN -->
                     <img src="./assets/images/placeholder.webp"
-                         data-src="./assets/images/bg.webp"
-                         alt="Ảnh nền"
-                         class="position-absolute opacity-25 top-50 start-50 translate-middle bg-cover-home">
+                        data-src="./assets/images/bg.webp"
+                        alt="Ảnh nền"
+                        onclick="undangan.guest.modal(this)"
+                        class="position-absolute top-0 start-0 w-100 h-100 cursor-pointer"
+                        style="object-fit: cover; z-index: 0;">
 
-                    <div class="position-relative text-center bg-overlay-auto"
-                         style="background-color: unset;">
+                    <!-- Lớp phủ -->
+                    <div class="position-absolute top-0 start-0 w-100 h-100"
+                        style="background: rgba(0, 0, 0, 0.25); z-index: 1; pointer-events: none;">
+                    </div>
 
-                        <h1 class="font-esthetic pt-5 pb-4 fw-medium"
-                            style="font-size: 2.25rem;">
+                    <!-- Nội dung -->
+                    <div class="position-relative text-center text-white"
+                        style="min-height: 100vh; z-index: 2; pointer-events: none;">
+
+                        <!-- Thiệp Cưới phía trên -->
+                        <h1 class="font-esthetic fw-medium m-0"
+                            style="
+                                position: absolute;
+                                top: 4%;
+                                left: 0;
+                                width: 100%;
+                                font-size: 2.25rem;
+                            ">
                             Thiệp Cưới
                         </h1>
 
-                        <img src="./assets/images/placeholder.webp"
-                             data-src="./assets/images/bg.webp"
-                             alt="Ảnh cưới"
-                             onclick="undangan.guest.modal(this)"
-                             class="img-center-crop rounded-circle border border-3 border-light shadow my-4 mx-auto cursor-pointer">
+                        <!-- Tên + ngày cưới phía dưới -->
+                        <div style="
+                            position: absolute;
+                            top: 75%;
+                            left: 0;
+                            width: 100%;
+                        ">
 
-                        <h2 class="font-esthetic my-4"
-                            style="font-size: 2.25rem;">
-                            Lương Nguyễn &amp; Tường Vi
-                        </h2>
+                            <h2 class="font-esthetic m-0"
+                                style="font-size: 2.25rem;">
+                                Lương Nguyễn &amp; Tường Vi
+                            </h2>
 
-                        <p class="my-2"
-                           style="font-size: 1.25rem;">
-                            Thứ Ba, ngày 29 tháng 09 năm 2026
-                        </p>
-
-                        <div class="d-flex justify-content-center align-items-center mt-4 mb-2">
-
-                            <div class="mouse-animation border border-secondary border-2 rounded-5 px-2 py-1 opacity-50">
-                                <div class="scroll-animation rounded-4 bg-secondary"></div>
-                            </div>
+                            <p class="mt-4 mb-0"
+                            style="font-size: 1.25rem;">
+                                Thứ Ba, ngày 29 tháng 09 năm 2026
+                            </p>
 
                         </div>
-
-                        <p class="pb-4 m-0 text-secondary"
-                           style="font-size: 0.825rem;">
-                            Cuộn xuống
-                        </p>
-
                     </div>
+
                 </section>
 
                 <!-- Wave Separator -->
@@ -433,154 +409,6 @@
 
                 </div>
 
-                <!-- Love Story -->
-                <section class="bg-light-dark pt-2 pb-4">
-
-                    <div class="container">
-
-                        <div class="bg-theme-auto rounded-5 shadow p-3">
-
-                            <h2 class="font-esthetic text-center py-2 mb-2"
-                                style="font-size: 2.125rem;">
-                                Câu Chuyện Tình Yêu
-                            </h2>
-
-                            <!-- Nếu không muốn sử dụng video, xóa toàn bộ tag có id="video-love-stroy" -->
-
-                            <div id="video-love-stroy"
-                                 class="position-relative rounded-4 mb-2 pb-0"
-                                 data-src="./assets/video/265501_tiny.mp4"
-                                 data-vid-class="w-100 rounded-4 shadow-sm m-0 p-0">
-
-                                <div class="position-absolute d-flex flex-column justify-content-center align-items-center top-50 start-50 translate-middle w-100 h-100 bg-overlay-auto rounded-4 z-3"
-                                     id="video-love-stroy-loading">
-
-                                    <div class="progress w-25"
-                                         role="progressbar"
-                                         style="height: 0.5rem;"
-                                         aria-label="Thanh tiến trình">
-
-                                        <div class="progress-bar"
-                                             id="progress-bar-video-love-stroy"
-                                             style="width: 0%;">
-                                        </div>
-
-                                    </div>
-
-                                    <small class="mt-1 text-theme-auto bg-theme-auto py-0 px-2 rounded-4"
-                                           id="progress-info-video-love-stroy"
-                                           style="font-size: 0.7rem;">
-                                    </small>
-
-                                </div>
-                            </div>
-
-                            <div class="position-relative">
-
-                                <div class="position-absolute d-flex justify-content-center align-items-center top-50 start-50 translate-middle w-100 h-100 bg-overlay-auto z-3"
-                                     style="opacity: 100%; background-color: unset;">
-
-                                    <button class="btn btn-outline-auto btn-sm rounded-4 shadow-sm"
-                                            onclick="undangan.guest.showStory(this.parentNode)">
-
-                                        <i class="fa-solid fa-heart fa-bounce me-2"></i>
-                                        Xem câu chuyện
-
-                                    </button>
-
-                                </div>
-
-                                <div class="overflow-y-scroll overflow-x-hidden p-2 with-scrollbar"
-                                     style="height: 15rem;">
-
-                                    <div class="row">
-
-                                        <div class="col-auto position-relative">
-
-                                            <p class="position-relative d-flex justify-content-center align-items-center bg-theme-auto border border-secondary border-2 opacity-100 rounded-circle m-0 p-0 z-1"
-                                               style="width: 2rem; height: 2rem;">
-                                                1
-                                            </p>
-
-                                            <hr class="position-absolute top-0 start-50 translate-middle-x border border-secondary h-100 z-0 opacity-100 m-0 rounded-4 shadow-none">
-
-                                        </div>
-
-                                        <div class="col mt-1 mb-3 ps-0">
-
-                                            <p class="fw-bold mb-2">
-                                                💼 Lần đầu gặp gỡ
-                                            </p>
-
-                                            <p class="small mb-0">
-                                                Vào tháng 10 năm 2024, Lương Nguyễn gặp Tường Vi và từ đó bắt đầu một câu chuyện thật đẹp.
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="col-auto position-relative">
-
-                                            <p class="position-relative d-flex justify-content-center align-items-center bg-theme-auto border border-secondary border-2 opacity-100 rounded-circle m-0 p-0 z-1"
-                                               style="width: 2rem; height: 2rem;">
-                                                2
-                                            </p>
-
-                                            <hr class="position-absolute top-0 start-50 translate-middle-x border border-secondary h-100 z-0 opacity-100 m-0 rounded-4 shadow-none">
-
-                                        </div>
-
-                                        <div class="col mt-1 mb-3 ps-0">
-
-                                            <p class="fw-bold mb-2">
-                                                💞 Những rung động đầu tiên
-                                            </p>
-
-                                            <p class="small mb-0">
-                                                Từ những cuộc trò chuyện giản dị, sự quan tâm chân thành dần trở thành những rung động đặc biệt trong lòng cả hai.
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-
-                                        <div class="col-auto position-relative">
-
-                                            <p class="position-relative d-flex justify-content-center align-items-center bg-theme-auto border border-secondary border-2 opacity-100 rounded-circle m-0 p-0 z-1"
-                                               style="width: 2rem; height: 2rem;">
-                                                3
-                                            </p>
-
-                                            <hr class="position-absolute top-0 start-50 translate-middle-x border border-secondary h-100 z-0 opacity-100 m-0 rounded-4 shadow-none">
-
-                                        </div>
-
-                                        <div class="col mt-1 mb-3 ps-0">
-
-                                            <p class="fw-bold mb-2">
-                                                💍 Hành trình về chung một nhà
-                                            </p>
-
-                                            <p class="small mb-0">
-                                                Sau những tháng ngày đồng hành, Lương Nguyễn và Tường Vi quyết định cùng nhau bước sang một hành trình mới, chính thức về chung một nhà.
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-
                 <!-- Wave Separator -->
                 <div class="svg-wrapper">
 
@@ -713,7 +541,7 @@
                              data-aos="fade-down"
                              data-aos-duration="1500">
 
-                            <a href="https://maps.app.goo.gl/5k9gQWvf6hGp9zQW6"
+                            <a href="https://maps.app.goo.gl/g88xPTAEbvCB6NPy9"
                                target="_blank"
                                class="btn btn-outline-auto btn-sm rounded-pill shadow mb-2 px-3">
 
@@ -752,59 +580,9 @@
 
                                 <div class="carousel-indicators">
 
-                                    <button type="button"
-                                            data-bs-target="#carousel-image-one"
-                                            data-bs-slide-to="0"
-                                            class="active"
-                                            aria-current="true"
-                                            aria-label="Ảnh 1">
-                                    </button>
-
-                                    <button type="button"
-                                            data-bs-target="#carousel-image-one"
-                                            data-bs-slide-to="1"
-                                            aria-label="Ảnh 2">
-                                    </button>
-
-                                    <button type="button"
-                                            data-bs-target="#carousel-image-one"
-                                            data-bs-slide-to="2"
-                                            aria-label="Ảnh 3">
-                                    </button>
-
                                 </div>
 
                                 <div class="carousel-inner rounded-4">
-
-                                    <div class="carousel-item active">
-
-                                        <img src="./assets/images/placeholder.webp"
-                                             data-src="https://picsum.photos/1280/720?random=1"
-                                             alt="Khoảnh khắc 1"
-                                             class="d-block img-fluid cursor-pointer"
-                                             onclick="undangan.guest.modal(this)">
-
-                                    </div>
-
-                                    <div class="carousel-item">
-
-                                        <img src="./assets/images/placeholder.webp"
-                                             data-src="https://picsum.photos/1280/720?random=2"
-                                             alt="Khoảnh khắc 2"
-                                             class="d-block img-fluid cursor-pointer"
-                                             onclick="undangan.guest.modal(this)">
-
-                                    </div>
-
-                                    <div class="carousel-item">
-
-                                        <img src="./assets/images/placeholder.webp"
-                                             data-src="https://picsum.photos/1280/720?random=3"
-                                             alt="Khoảnh khắc 3"
-                                             class="d-block img-fluid cursor-pointer"
-                                             onclick="undangan.guest.modal(this)">
-
-                                    </div>
 
                                 </div>
 
